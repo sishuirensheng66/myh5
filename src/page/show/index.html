@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>myh5</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, minimal-ui">
+	<meta name="viewport" content="width=320, initial-scale=1.171875, maximum-scale=1.171875, user-scalable=no" />
+</head>
+<link rel=stylesheet type=text/css href="../../public/css/reset.css">
+<link rel=stylesheet type=text/css href="../../public/css/animation.css">
+<style>
+	html,
+	body {
+		width: 100%;
+		height: 100%;
+		position: relative;
+	}
+
+	.swiper-container {
+		width: 100%;
+		height: 100%;
+	}
+
+	.swiper-container .swiper-wrapper {
+		width: 100%;
+		height: 100%;
+		position: absolute;
+	}
+
+	.swiper-slide {
+		position: relative;
+		width: 100%;
+		height: 100%;
+	}
+	/*.xxx{
+		width: 320px;
+		height: 486px;
+		position: absolute;
+		top:0;
+		margin-top: 41.5px;
+
+	}*/
+	/* 加载提示 */
+
+#loadingWrap {
+    z-index: 9999;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    font-size: 14px;
+    line-height: 20px;
+    -webkit-transition: all 0.4s ease;
+    color: rgba(255, 70, 96, 1);
+}
+
+#loadingWrap>div {
+    text-align: center;
+    position: absolute;
+    width: 100%;
+    height: 51%;
+    background: #fff;
+}
+
+#loadingWrap .top {
+    top: 0;
+    left: 0;
+}
+
+#loadingWrap .top img {
+    display: block;
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+    /*width:123px;height: 75px;*/
+    max-width: 200px;
+    height: 100px;
+}
+
+#loadingWrap .msg {
+    position: absolute;
+    top: 5px;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+    width: 100%;
+}
+
+#loadingWrap .msg p {
+    font-size: 18px;
+    font-weight: bold;
+    display: block;
+    width: 100%;
+    text-align: center;
+    line-height: 28px;
+}
+
+#loadingWrap .msg #loading {}
+
+#loadingWrap .bottom {
+    left: 0;
+    bottom: 0;
+}
+</style>
+
+<body>
+		<div class="swiper-container" id="wrapAll">
+			<div class="swiper-wrapper">
+				<% workData.data.data.forEach(function(page){ %>
+					<div class="swiper-slide" style="position:position;width:100%;height:100%;background:<%= page.main.background %>">
+						<div style="width:320px;height:486px;position:absolute;margin-top:41px;">
+						<% page.data && page.data.forEach(function(item){ %>
+							<div event="<%- item.event %>" type="<%- item.type %>" class="item <%- item.class %>" style="position:absolute;<%- fn(item.style) %>">
+								<%- item.content.replace(/src/g, 'data-src') %>
+							</div>
+						<% }) %>
+						</div>
+					</div>
+				<% }) %>
+			</div>
+		</div>
+
+	<!-- 加载提示 -->
+
+<div id="loadingWrap">
+    <div class="top" style="background: #fff;">
+        <img src="http://mjs.sinaimg.cn/wap/module/h5_builder/main/images/sina-loading.gif">
+    </div>
+    <div class="bottom" style="background: #fff;">
+        <div class="msg"  style="color: red;">
+            <p>新浪移动出品</p>
+            <div id="loading">0.00%</div>
+        </div>
+    </div>
+</div>
+
+
+<!-- 加载提示 -->
+	<audio></audio>
+	<!-- built files will be auto injected -->
+	<script src="../../public/library/jquery.min.js"></script>
+	<script src="../../public/library/swiper.min.js"></script>
+</body>
+<script>
+	var phoneMain = <%- JSON.stringify(workData.data.main) %>;
+	var phoneSet = <%- JSON.stringify(workData.data.set) %>;
+	var phoneSetx = <%- JSON.stringify(workData.data.data) %>;
+</script>
+<script src="http://localhost:8080/show.js"></script>
+
+</html>
